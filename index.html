@@ -3,193 +3,618 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>书愈 - 技术支持</title>
+    <title>书愈 - 以书愈心</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+
+        :root {
+            --warm-bg: #FFF9F3;
+            --warm-card: #FFFCF8;
+            --warm-border: #F0E6D6;
+            --text-primary: #2C1810;
+            --text-secondary: #8C7B6B;
+            --text-light: #B8A898;
+            --accent-blue: #5B9FFF;
+            --accent-purple: #8B5CF6;
+            --accent-pink: #FF7EB3;
+            --accent-green: #34B578;
+            --accent-orange: #FF8C42;
+            --accent-teal: #3DBAA7;
+            --accent-rose: #D4789C;
+            --accent-brown: #C4956A;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Serif SC", serif;
+            background: var(--warm-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
             min-height: 100vh;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            color: white;
-            padding: 40px 0;
+            overflow: hidden;
+            background: linear-gradient(160deg, #FFF8F0 0%, #F5EDE3 40%, #E8D5C0 100%);
         }
-        .header h1 {
-            font-size: 48px;
-            margin-bottom: 12px;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(91,159,255,0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .header p {
-            font-size: 18px;
-            opacity: 0.9;
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -20%;
+            width: 60%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(196,149,106,0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
+
+        .hero-content { position: relative; z-index: 1; padding: 0 24px; }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 100px;
+            background: rgba(91,159,255,0.1);
+            color: var(--accent-blue);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 1px solid rgba(91,159,255,0.15);
         }
-        .card h2 {
-            font-size: 22px;
+
+        .hero h1 {
+            font-family: "Noto Serif SC", serif;
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 8px;
             margin-bottom: 16px;
-            color: #1a1a2e;
+            line-height: 1.1;
         }
-        .card p, .card li {
+
+        .hero-subtitle {
+            font-family: "Noto Serif SC", serif;
+            font-size: 22px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            letter-spacing: 4px;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-light);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .hero-stat { text-align: center; }
+
+        .hero-stat .num {
+            font-family: "Noto Serif SC", serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .hero-stat .label {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 2s ease-in-out infinite;
+            color: var(--text-light);
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scroll-hint span {
+            width: 1px;
+            height: 32px;
+            background: var(--text-light);
+            opacity: 0.4;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        /* Sections */
+        .section {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-header h2 {
+            font-family: "Noto Serif SC", serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .section-header p {
             font-size: 15px;
-            line-height: 1.8;
-            color: #555;
+            color: var(--text-light);
         }
-        .card ul {
-            list-style: none;
-            padding: 0;
+
+        .section-divider {
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-brown), var(--accent-blue));
+            border-radius: 2px;
+            margin: 16px auto 0;
         }
-        .card ul li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
         }
-        .card ul li:last-child {
-            border-bottom: none;
+
+        .feature-card {
+            background: var(--warm-card);
+            border: 1px solid var(--warm-border);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .card ul li::before {
-            content: "✦ ";
-            color: #764ba2;
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 20px 20px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .features {
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(196,149,106,0.12);
+            border-color: transparent;
+        }
+
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-card:nth-child(1)::before { background: linear-gradient(90deg, #5B9FFF, #3B7EE8); }
+        .feature-card:nth-child(2)::before { background: linear-gradient(90deg, #8B5CF6, #6D3FD4); }
+        .feature-card:nth-child(3)::before { background: linear-gradient(90deg, #FF7EB3, #FF4B8C); }
+        .feature-card:nth-child(4)::before { background: linear-gradient(90deg, #34B578, #2A9662); }
+        .feature-card:nth-child(5)::before { background: linear-gradient(90deg, #FF8C42, #E87530); }
+        .feature-card:nth-child(6)::before { background: linear-gradient(90deg, #3DBAA7, #2E9A8A); }
+        .feature-card:nth-child(7)::before { background: linear-gradient(90deg, #D4789C, #C05C80); }
+        .feature-card:nth-child(8)::before { background: linear-gradient(90deg, #C4956A, #A97B52); }
+        .feature-card:nth-child(9)::before { background: linear-gradient(90deg, #FF9A76, #FF6B6B); }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Highlight Section */
+        .highlights {
+            background: linear-gradient(160deg, #F5EDE3 0%, #FFF8F0 100%);
+            padding: 80px 0;
+        }
+
+        .highlight-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 32px;
         }
-        .feature-item {
-            background: #f8f6ff;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
+
+        .highlight-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 24px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 16px;
+            border: 1px solid var(--warm-border);
+            backdrop-filter: blur(10px);
         }
-        .feature-item .icon {
+
+        .highlight-num {
+            font-family: "Noto Serif SC", serif;
             font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-brown);
+            opacity: 0.3;
+            line-height: 1;
+            min-width: 40px;
+        }
+
+        .highlight-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .highlight-item p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Policy */
+        .policy-card {
+            background: var(--warm-card);
+            border: 1px solid var(--warm-border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .policy-card h2 {
+            font-family: "Noto Serif SC", serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .policy-list { list-style: none; }
+
+        .policy-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #F5EDE3;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.7;
+        }
+
+        .policy-list li:last-child { border-bottom: none; }
+
+        .policy-list li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-brown);
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Contact */
+        .contact-section {
+            background: linear-gradient(160deg, var(--text-primary) 0%, #3D2B1E 100%);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .contact-section .section-header h2 { color: white; }
+        .contact-section .section-header p { color: rgba(255,255,255,0.5); }
+        .contact-section .section-divider { background: linear-gradient(90deg, var(--accent-brown), var(--accent-orange)); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 32px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+        }
+
+        .contact-item .icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .contact-item h3 {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
             margin-bottom: 8px;
         }
-        .feature-item h3 {
-            font-size: 16px;
-            color: #1a1a2e;
-            margin-bottom: 4px;
+
+        .contact-item p {
+            font-size: 15px;
+            color: white;
+            font-weight: 500;
         }
-        .feature-item p {
-            font-size: 13px;
-            color: #888;
-        }
-        .contact-info {
-            background: #f8f6ff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 16px;
-        }
-        .contact-info p {
-            padding: 6px 0;
-        }
+
+        /* Footer */
         .footer {
             text-align: center;
-            color: rgba(255,255,255,0.7);
-            padding: 32px 0;
-            font-size: 14px;
+            padding: 32px 24px;
+            background: var(--text-primary);
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
         }
-        @media (max-width: 600px) {
-            .features { grid-template-columns: 1fr; }
-            .header h1 { font-size: 36px; }
+
+        .footer a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 48px; letter-spacing: 4px; }
+            .hero-subtitle { font-size: 18px; }
+            .hero-stats { gap: 24px; }
+            .hero-stat .num { font-size: 28px; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .highlight-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .section { padding: 60px 20px; }
+            .section-header h2 { font-size: 26px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 40px; }
+            .features-grid { grid-template-columns: 1fr; gap: 16px; }
+            .policy-card { padding: 24px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>书愈</h1>
-            <p>以书愈心，阅读与心理咨询的温暖社区</p>
-        </div>
 
-        <div class="card">
-            <h2>应用介绍</h2>
-            <p>书愈是一款融合阅读与心理健康的社区 App。在这里，你可以管理阅读计划、聆听冥想音频、与心理咨询师交流，还能和书友们分享阅读感悟。用阅读治愈心灵，让每一天都充满力量。</p>
-        </div>
-
-        <div class="card">
-            <h2>主要功能</h2>
-            <div class="features">
-                <div class="feature-item">
-                    <div class="icon">📚</div>
-                    <h3>阅读管理</h3>
-                    <p>添加书籍，记录阅读时长</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">💬</div>
-                    <h3>心理咨询</h3>
-                    <p>专业咨询师一对一交流</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">🧘</div>
-                    <h3>冥想课程</h3>
-                    <p>200+专业冥想音频</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">🧠</div>
-                    <h3>MBTI 测试</h3>
-                    <p>深入了解人格特质</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">👥</div>
-                    <h3>书友社区</h3>
-                    <p>分享书评，结识书友</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">⚡</div>
-                    <h3>阅读 PK</h3>
-                    <p>比拼阅读时长</p>
-                </div>
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">iOS &middot; 阅读 &middot; 心理健康</div>
+        <h1>书愈</h1>
+        <p class="hero-subtitle">以书愈心，阅读治愈一切</p>
+        <p class="hero-desc">一款融合深度阅读与心理健康的温暖社区。管理书籍、聆听冥想、探索人格、与书友畅聊——让每一页书、每一次呼吸，都成为治愈的力量。</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="num">200+</div>
+                <div class="label">冥想音频</div>
             </div>
-        </div>
-
-        <div class="card">
-            <h2>隐私政策</h2>
-            <ul>
-                <li>我们重视用户隐私，仅收集提供服务所必需的信息（如手机号用于账号注册）</li>
-                <li>用户的阅读记录、聊天内容等个人数据将严格保密，不会向第三方泄露</li>
-                <li>我们使用加密技术保护数据传输和存储安全</li>
-                <li>用户可随时在 App 内申请删除个人账号及所有相关数据</li>
-                <li>我们不会在未经用户同意的情况下发送营销信息</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>订阅说明</h2>
-            <ul>
-                <li>书愈提供月卡、季卡、年卡自动续订订阅及永久会员一次性购买</li>
-                <li>订阅费用将通过您的 Apple ID 账户进行支付</li>
-                <li>订阅将在到期前 24 小时内自动续订，届时将从您的账户扣费</li>
-                <li>您可以随时在 iPhone「设置 → Apple ID → 订阅」中管理或取消订阅</li>
-                <li>免费试用期（如有）未使用的部分将在购买订阅后失效</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>技术支持</h2>
-            <p>如果您在使用过程中遇到任何问题，欢迎通过以下方式联系我们：</p>
-            <div class="contact-info">
-                <p><strong>邮箱：</strong>tangming0811@126.com</p>
-                <p><strong>工作时间：</strong>周一至周五 9:00 - 18:00</p>
-                <p><strong>响应时间：</strong>我们将在 1-2 个工作日内回复</p>
+            <div class="hero-stat">
+                <div class="num">5</div>
+                <div class="label">人格测试</div>
             </div>
-        </div>
-
-        <div class="footer">
-            <p>&copy; 2026 yinming ye. All rights reserved.</p>
+            <div class="hero-stat">
+                <div class="num">∞</div>
+                <div class="label">阅读陪伴</div>
+            </div>
         </div>
     </div>
+    <div class="scroll-hint">
+        向下探索
+        <span></span>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="section">
+    <div class="section-header">
+        <h2>核心功能</h2>
+        <p>阅读 · 冥想 · 社区 · 心理探索，一站式心灵成长平台</p>
+        <div class="section-divider"></div>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(91,159,255,0.1);">📚</div>
+            <h3>智能书架</h3>
+            <p>ISBN 扫码添加书籍，自动获取封面与信息。支持导入 EPUB / PDF / TXT 电子书，内置阅读器，随时随地畅读。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(139,92,246,0.1);">🧘</div>
+            <h3>冥想正念</h3>
+            <p>200+ 专业冥想音频，涵盖入睡、减压、专注等场景。配合正念打卡，培养内在觉察力。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(255,126,179,0.1);">💬</div>
+            <h3>沉浸式聊天</h3>
+            <p>文字、语音、视频通话、位置分享、书籍卡片分享。自定义气泡风格，语音转文字，打造专属聊天体验。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(52,181,120,0.1);">🧠</div>
+            <h3>人格测评</h3>
+            <p>MBTI、大五人格、九型人格、DISC、PDP 五大专业测试，深度解析人格特质，了解真实的自己。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(255,140,66,0.1);">🏆</div>
+            <h3>文学擂台</h3>
+            <p>每周阅读挑战、知识竞赛、阅读时长 PK。获取成就勋章，积累书币，在竞争中爱上阅读。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(61,186,167,0.1);">👨‍⚕️</div>
+            <h3>公益心理咨询</h3>
+            <p>经过认证的公益心理咨询师，在线一对一交流。支持视频通话，让心灵有一个安全的倾诉空间。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(212,120,156,0.1);">📝</div>
+            <h3>随心记</h3>
+            <p>每日心情日记，记录读书感悟与生活点滴。用文字沉淀思考，让内心的声音被温柔承接。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(196,149,106,0.1);">🌐</div>
+            <h3>书友广场</h3>
+            <p>发布读书动态、分享书评、发起话题讨论。附近定位发现身边书友，线上线下共读。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(255,154,118,0.1);">🎖️</div>
+            <h3>成就系统</h3>
+            <p>阅读里程碑、打卡记录、社区贡献……每一步成长都被铭记。展示成就，见证自己的蜕变。</p>
+        </div>
+    </div>
+</section>
+
+<!-- Highlights -->
+<section class="highlights">
+    <div class="section" style="padding-top:0;padding-bottom:0;">
+        <div class="section-header">
+            <h2>为什么选择书愈</h2>
+            <p>不只是阅读工具，更是你的心灵伙伴</p>
+            <div class="section-divider"></div>
+        </div>
+        <div class="highlight-grid">
+            <div class="highlight-item">
+                <div class="highlight-num">01</div>
+                <div>
+                    <h3>阅读 × 心理，双重治愈</h3>
+                    <p>将阅读管理与心理健康深度结合，用书本和冥想共同呵护内心世界。</p>
+                </div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-num">02</div>
+                <div>
+                    <h3>端到端加密聊天</h3>
+                    <p>所有私信内容加密传输，语音、视频通话安全无忧，守护你的隐私。</p>
+                </div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-num">03</div>
+                <div>
+                    <h3>专业人格测评体系</h3>
+                    <p>五大权威测试全覆盖，历史记录可追溯，见证人格认知的成长轨迹。</p>
+                </div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-num">04</div>
+                <div>
+                    <h3>温暖的社区氛围</h3>
+                    <p>没有算法推荐的焦虑，只有真实书友的分享。在这里，慢下来也是一种力量。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Privacy & Subscription -->
+<section class="section">
+    <div class="policy-card">
+        <h2>隐私政策</h2>
+        <ul class="policy-list">
+            <li>我们重视用户隐私，仅收集提供服务所必需的信息（如手机号用于账号注册）</li>
+            <li>用户的阅读记录、聊天内容等个人数据将严格保密，不会向第三方泄露</li>
+            <li>聊天消息采用加密技术保护传输和存储安全</li>
+            <li>用户可随时在 App 内申请删除个人账号及所有相关数据</li>
+            <li>我们不会在未经用户同意的情况下发送营销信息</li>
+        </ul>
+    </div>
+    <div class="policy-card">
+        <h2>订阅说明</h2>
+        <ul class="policy-list">
+            <li>书愈提供月卡、季卡、年卡自动续订订阅及永久会员一次性购买</li>
+            <li>订阅费用将通过您的 Apple ID 账户进行支付</li>
+            <li>订阅将在到期前 24 小时内自动续订，届时将从您的账户扣费</li>
+            <li>您可以随时在 iPhone「设置 → Apple ID → 订阅」中管理或取消订阅</li>
+            <li>免费试用期（如有）未使用的部分将在购买订阅后失效</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section">
+    <div class="section" style="padding-top:0;padding-bottom:0;">
+        <div class="section-header">
+            <h2>技术支持</h2>
+            <p>遇到问题？我们随时为你解答</p>
+            <div class="section-divider"></div>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="icon">✉️</div>
+                <h3>邮箱</h3>
+                <p>bookpals@163.com</p>
+            </div>
+            <div class="contact-item">
+                <div class="icon">🕐</div>
+                <h3>工作时间</h3>
+                <p>周一至周五 9:00-18:00</p>
+            </div>
+            <div class="contact-item">
+                <div class="icon">⚡</div>
+                <h3>响应时间</h3>
+                <p>1-2 个工作日内回复</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2026 yinming ye. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
