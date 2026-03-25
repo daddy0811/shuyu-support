@@ -6,298 +6,222 @@
     <title>书愈 - 以书愈心</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&display=swap');
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #0a0a0f;
-            color: #e8e4df;
+            background: #f0f7f0;
+            color: #1a2e1a;
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* ===== Nav ===== */
+        /* Nav */
         .nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 20px 40px;
+            padding: 14px 40px;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(10,10,15,0.6);
+            background: rgba(240,247,240,0.75);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(46,125,50,0.08);
         }
-        .nav-logo {
-            font-family: "Noto Serif SC", serif;
-            font-size: 22px; font-weight: 700; color: #fff;
-            letter-spacing: 4px;
-        }
-        .nav-links { display: flex; gap: 32px; }
-        .nav-links a {
-            color: rgba(255,255,255,0.5); text-decoration: none;
-            font-size: 13px; letter-spacing: 1px; transition: color 0.3s;
-        }
-        .nav-links a:hover { color: #fff; }
+        .nav-logo { font-family: "Noto Serif SC", serif; font-size: 20px; font-weight: 700; color: #2e7d32; letter-spacing: 3px; }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a { color: #5a7d5a; text-decoration: none; font-size: 13px; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: #2e7d32; }
 
-        /* ===== Hero ===== */
+        /* Hero - compact */
         .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center;
+            position: relative; padding: 120px 32px 60px; text-align: center;
+            background: linear-gradient(170deg, #e8f5e9 0%, #f0f7f0 30%, #fff8e1 70%, #fce4ec 100%);
             overflow: hidden;
         }
-        .hero-bg {
-            position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(196,149,106,0.15) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 20% 80%, rgba(91,159,255,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 40% at 80% 20%, rgba(139,92,246,0.08) 0%, transparent 50%);
+        .hero::before {
+            content: ''; position: absolute; top: -100px; right: -100px;
+            width: 400px; height: 400px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(129,199,132,0.25), transparent 70%);
+            animation: drift 8s ease-in-out infinite;
         }
-        .hero-glow {
-            position: absolute; top: 50%; left: 50%;
-            width: 600px; height: 600px;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(196,149,106,0.12) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
+        .hero::after {
+            content: ''; position: absolute; bottom: -80px; left: -60px;
+            width: 300px; height: 300px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,183,77,0.15), transparent 70%);
+            animation: drift 10s ease-in-out infinite reverse;
         }
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
+        @keyframes drift {
+            0%,100% { transform: translate(0,0); }
+            50% { transform: translate(20px,-15px); }
         }
-        .hero-grid {
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 80px 80px;
-            mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 70%);
-            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 70%);
-        }
-        .hero-content { position: relative; z-index: 1; padding: 0 24px; }
+        .hero-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
         .hero-tag {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 6px 16px; border-radius: 100px; margin-bottom: 32px;
-            background: rgba(196,149,106,0.1);
-            border: 1px solid rgba(196,149,106,0.2);
-            font-size: 12px; color: #C4956A; letter-spacing: 2px; text-transform: uppercase;
+            padding: 5px 16px; border-radius: 100px; margin-bottom: 20px;
+            background: rgba(46,125,50,0.08); border: 1px solid rgba(46,125,50,0.15);
+            font-size: 12px; color: #2e7d32; letter-spacing: 1px;
         }
-        .hero-tag .dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: #C4956A; animation: blink 2s ease-in-out infinite;
-        }
+        .hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: #4caf50; animation: blink 2s infinite; }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
         .hero h1 {
-            font-family: "Noto Serif SC", serif;
-            font-size: 88px; font-weight: 900;
-            line-height: 1.05; letter-spacing: 6px; margin-bottom: 24px;
-            background: linear-gradient(135deg, #fff 0%, #C4956A 50%, #8B5CF6 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: "Noto Serif SC", serif; font-size: 56px; font-weight: 900;
+            line-height: 1.15; margin-bottom: 16px;
+            background: linear-gradient(135deg, #1b5e20 0%, #4caf50 40%, #ff8f00 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        .hero-sub {
-            font-size: 20px; color: rgba(255,255,255,0.5);
-            max-width: 520px; margin: 0 auto 48px; line-height: 1.8;
-        }
+        .hero-sub { font-size: 16px; color: #5a7d5a; max-width: 460px; margin: 0 auto 28px; line-height: 1.8; }
         .hero-stats {
-            display: flex; gap: 56px; justify-content: center;
-            padding: 32px 48px; border-radius: 20px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
+            display: inline-flex; gap: 0;
+            border-radius: 16px; overflow: hidden;
+            background: rgba(255,255,255,0.7); border: 1px solid rgba(46,125,50,0.1);
             backdrop-filter: blur(10px);
         }
-        .hero-stat { text-align: center; }
-        .hero-stat .num {
-            font-family: "Noto Serif SC", serif;
-            font-size: 40px; font-weight: 900;
-            background: linear-gradient(135deg, #C4956A, #FF8C42);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-stat {
+            padding: 18px 28px; text-align: center;
+            border-right: 1px solid rgba(46,125,50,0.08);
         }
-        .hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 4px; letter-spacing: 1px; }
+        .hero-stat:last-child { border-right: none; }
+        .hero-stat .num { font-family: "Noto Serif SC", serif; font-size: 28px; font-weight: 900; color: #2e7d32; }
+        .hero-stat .label { font-size: 11px; color: #81c784; margin-top: 2px; letter-spacing: 1px; }
 
-        /* ===== Section common ===== */
-        .section { max-width: 1120px; margin: 0 auto; padding: 100px 32px; }
-        .section-label {
-            font-size: 12px; color: #C4956A; letter-spacing: 3px;
-            text-transform: uppercase; margin-bottom: 12px;
-        }
-        .section-title {
-            font-family: "Noto Serif SC", serif;
-            font-size: 42px; font-weight: 700; color: #fff;
-            margin-bottom: 16px; letter-spacing: 2px; line-height: 1.2;
-        }
-        .section-desc { font-size: 16px; color: rgba(255,255,255,0.4); max-width: 560px; }
+        /* Bento Features */
+        .section { max-width: 1080px; margin: 0 auto; padding: 56px 24px; }
+        .section-label { font-size: 12px; color: #4caf50; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+        .section-title { font-family: "Noto Serif SC", serif; font-size: 32px; font-weight: 700; color: #1b5e20; margin-bottom: 10px; }
+        .section-desc { font-size: 14px; color: #6d8f6d; margin-bottom: 0; }
 
-        /* ===== Feature Bento Grid ===== */
-        .bento {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: minmax(200px, auto);
-            gap: 16px; margin-top: 56px;
-        }
+        .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 32px; }
         .bento-card {
-            position: relative; border-radius: 20px; padding: 32px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-            overflow: hidden;
+            position: relative; border-radius: 18px; padding: 24px 20px;
+            background: rgba(255,255,255,0.75);
+            border: 1px solid rgba(46,125,50,0.08);
+            backdrop-filter: blur(8px);
+            transition: all 0.35s ease; overflow: hidden;
         }
         .bento-card:hover {
-            border-color: rgba(196,149,106,0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(46,125,50,0.1);
+            border-color: rgba(46,125,50,0.2);
         }
-        .bento-card::after {
-            content: ''; position: absolute; inset: 0; border-radius: 20px;
-            opacity: 0; transition: opacity 0.4s;
-        }
-        .bento-card:hover::after { opacity: 1; }
         .bento-card.span2 { grid-column: span 2; }
         .bento-icon {
-            width: 48px; height: 48px; border-radius: 14px; margin-bottom: 20px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 24px; position: relative; z-index: 1;
+            width: 42px; height: 42px; border-radius: 12px; margin-bottom: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 22px;
         }
-        .bento-card h3 {
-            font-size: 18px; font-weight: 600; color: #fff;
-            margin-bottom: 8px; position: relative; z-index: 1;
-        }
-        .bento-card p {
-            font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7;
-            position: relative; z-index: 1;
-        }
-        .bento-card .tags { display: flex; gap: 6px; margin-top: 16px; flex-wrap: wrap; position: relative; z-index: 1; }
+        .bento-card h3 { font-size: 16px; font-weight: 600; color: #1b5e20; margin-bottom: 6px; }
+        .bento-card p { font-size: 13px; color: #6d8f6d; line-height: 1.65; }
+        .bento-card .tags { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
         .bento-card .tag {
-            padding: 4px 10px; border-radius: 6px; font-size: 11px;
-            background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5);
-            letter-spacing: 0.5px;
+            padding: 3px 9px; border-radius: 6px; font-size: 10px; font-weight: 500;
+            background: rgba(46,125,50,0.06); color: #4caf50; letter-spacing: 0.5px;
         }
 
         /* Card accent colors */
-        .card-blue .bento-icon { background: rgba(91,159,255,0.15); }
-        .card-blue::after { background: radial-gradient(ellipse at 30% 0%, rgba(91,159,255,0.06), transparent 60%); }
-        .card-purple .bento-icon { background: rgba(139,92,246,0.15); }
-        .card-purple::after { background: radial-gradient(ellipse at 30% 0%, rgba(139,92,246,0.06), transparent 60%); }
-        .card-pink .bento-icon { background: rgba(255,126,179,0.15); }
-        .card-pink::after { background: radial-gradient(ellipse at 30% 0%, rgba(255,126,179,0.06), transparent 60%); }
-        .card-green .bento-icon { background: rgba(52,181,120,0.15); }
-        .card-green::after { background: radial-gradient(ellipse at 30% 0%, rgba(52,181,120,0.06), transparent 60%); }
-        .card-orange .bento-icon { background: rgba(255,140,66,0.15); }
-        .card-orange::after { background: radial-gradient(ellipse at 30% 0%, rgba(255,140,66,0.06), transparent 60%); }
-        .card-teal .bento-icon { background: rgba(61,186,167,0.15); }
-        .card-teal::after { background: radial-gradient(ellipse at 30% 0%, rgba(61,186,167,0.06), transparent 60%); }
-        .card-rose .bento-icon { background: rgba(212,120,156,0.15); }
-        .card-rose::after { background: radial-gradient(ellipse at 30% 0%, rgba(212,120,156,0.06), transparent 60%); }
-        .card-brown .bento-icon { background: rgba(196,149,106,0.15); }
-        .card-brown::after { background: radial-gradient(ellipse at 30% 0%, rgba(196,149,106,0.06), transparent 60%); }
-        .card-red .bento-icon { background: rgba(255,107,107,0.15); }
-        .card-red::after { background: radial-gradient(ellipse at 30% 0%, rgba(255,107,107,0.06), transparent 60%); }
+        .card-blue .bento-icon { background: rgba(91,159,255,0.12); }
+        .card-purple .bento-icon { background: rgba(139,92,246,0.12); }
+        .card-pink .bento-icon { background: rgba(255,126,179,0.12); }
+        .card-green .bento-icon { background: rgba(76,175,80,0.12); }
+        .card-orange .bento-icon { background: rgba(255,140,66,0.12); }
+        .card-teal .bento-icon { background: rgba(61,186,167,0.12); }
+        .card-rose .bento-icon { background: rgba(212,120,156,0.12); }
+        .card-brown .bento-icon { background: rgba(196,149,106,0.12); }
+        .card-red .bento-icon { background: rgba(255,107,107,0.12); }
 
-        /* ===== Tech Highlights ===== */
-        .tech-section {
-            position: relative;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            background:
-                radial-gradient(ellipse 50% 50% at 80% 50%, rgba(139,92,246,0.05), transparent),
-                radial-gradient(ellipse 50% 50% at 20% 50%, rgba(91,159,255,0.05), transparent);
+        /* Tech strip */
+        .tech-strip {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32 40%, #388e3c);
+            padding: 48px 0; margin-top: 8px;
         }
-        .tech-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-            margin-top: 56px;
-        }
+        .tech-strip .section { padding: 0 24px; }
+        .tech-strip .section-label { color: rgba(255,255,255,0.5); }
+        .tech-strip .section-title { color: #fff; font-size: 28px; margin-bottom: 32px; }
+        .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
         .tech-item {
-            padding: 40px 28px; text-align: center;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            transition: background 0.3s;
+            padding: 24px 20px; text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
         .tech-item:last-child { border-right: none; }
-        .tech-item:hover { background: rgba(255,255,255,0.02); }
-        .tech-item .icon {
-            font-size: 32px; margin-bottom: 16px;
-            filter: grayscale(0.3);
-        }
-        .tech-item h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-        .tech-item p { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.6; }
+        .tech-item .icon { font-size: 28px; margin-bottom: 10px; }
+        .tech-item h3 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+        .tech-item p { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6; }
 
-        /* ===== Policy ===== */
-        .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+        /* Policy */
+        .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
         .policy-card {
-            padding: 36px; border-radius: 20px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
+            padding: 28px; border-radius: 18px;
+            background: rgba(255,255,255,0.75);
+            border: 1px solid rgba(46,125,50,0.08);
         }
-        .policy-card h3 {
-            font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 20px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .policy-card h3 .icon { font-size: 20px; }
+        .policy-card h3 { font-size: 16px; font-weight: 600; color: #1b5e20; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .policy-card h3 .icon { font-size: 18px; }
         .policy-list { list-style: none; }
         .policy-list li {
-            padding: 10px 0; font-size: 14px; color: rgba(255,255,255,0.4);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            display: flex; align-items: flex-start; gap: 10px; line-height: 1.6;
+            padding: 8px 0; font-size: 13px; color: #6d8f6d;
+            border-bottom: 1px solid rgba(46,125,50,0.05);
+            display: flex; align-items: flex-start; gap: 8px; line-height: 1.6;
         }
         .policy-list li:last-child { border-bottom: none; }
         .policy-list li::before {
-            content: ''; width: 4px; height: 4px; border-radius: 50%;
-            background: #C4956A; margin-top: 9px; flex-shrink: 0;
+            content: ''; width: 5px; height: 5px; border-radius: 50%;
+            background: #81c784; margin-top: 8px; flex-shrink: 0;
         }
 
-        /* ===== Contact ===== */
+        /* Contact bar */
         .contact-bar {
-            display: flex; justify-content: center; gap: 48px;
-            padding: 48px 32px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: center; gap: 40px;
+            padding: 36px 24px; margin-top: 8px;
+            background: rgba(255,255,255,0.5);
+            border-top: 1px solid rgba(46,125,50,0.06);
+            border-bottom: 1px solid rgba(46,125,50,0.06);
         }
-        .contact-bar .item {
-            display: flex; align-items: center; gap: 12px;
-            font-size: 14px; color: rgba(255,255,255,0.4);
-        }
-        .contact-bar .item .icon { font-size: 18px; }
-        .contact-bar .item strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+        .contact-bar .item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #6d8f6d; }
+        .contact-bar .item strong { color: #2e7d32; font-weight: 500; }
 
-        /* ===== Footer ===== */
+        /* Footer */
         .footer {
-            text-align: center; padding: 32px;
-            font-size: 12px; color: rgba(255,255,255,0.2);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center; padding: 28px; font-size: 11px;
+            color: #a5c4a5; background: #e8f5e9;
         }
 
-        /* ===== Scroll animations ===== */
+        /* Leaf decorations */
+        .leaf {
+            position: absolute; opacity: 0.06; pointer-events: none;
+            font-size: 120px; z-index: 0;
+        }
+
+        /* Scroll animation */
         .fade-up {
-            opacity: 0; transform: translateY(32px);
-            transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
         }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        /* ===== Responsive ===== */
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav { padding: 16px 20px; }
+            .nav { padding: 12px 20px; }
             .nav-links { display: none; }
-            .hero h1 { font-size: 52px; }
-            .hero-stats { flex-direction: column; gap: 20px; padding: 24px; }
+            .hero h1 { font-size: 38px; }
+            .hero { padding: 100px 20px 48px; }
+            .hero-stats { flex-wrap: wrap; }
+            .hero-stat { padding: 14px 20px; }
             .bento { grid-template-columns: 1fr; }
             .bento-card.span2 { grid-column: span 1; }
             .tech-grid { grid-template-columns: 1fr 1fr; }
-            .tech-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .tech-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
             .policy-grid { grid-template-columns: 1fr; }
-            .contact-bar { flex-direction: column; align-items: center; gap: 16px; }
-            .section { padding: 60px 20px; }
-            .section-title { font-size: 30px; }
+            .contact-bar { flex-direction: column; align-items: center; gap: 12px; }
+            .section { padding: 40px 16px; }
+            .section-title { font-size: 26px; }
         }
         @media (max-width: 480px) {
-            .hero h1 { font-size: 40px; letter-spacing: 2px; }
-            .hero-sub { font-size: 16px; }
+            .hero h1 { font-size: 32px; }
             .tech-grid { grid-template-columns: 1fr; }
+            .hero-stat { padding: 12px 16px; }
+            .hero-stat .num { font-size: 22px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Nav -->
 <nav class="nav">
     <div class="nav-logo">书愈</div>
     <div class="nav-links">
@@ -310,12 +234,12 @@
 
 <!-- Hero -->
 <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-grid"></div>
+    <span class="leaf" style="top:20px;right:5%;">🌿</span>
+    <span class="leaf" style="bottom:40px;left:3%;font-size:80px;">🍃</span>
+    <span class="leaf" style="top:60%;right:8%;font-size:60px;">🌱</span>
     <div class="hero-content">
         <div class="hero-tag"><span class="dot"></span> 全新 1.2.0 现已发布</div>
-        <h1>以书愈心</h1>
+        <h1>以书愈心<br>阅读治愈一切</h1>
         <p class="hero-sub">融合深度阅读与心理健康的温暖社区。管理书籍、聆听冥想、探索人格、与书友畅聊——让每一页书都成为治愈的力量。</p>
         <div class="hero-stats">
             <div class="hero-stat"><div class="num">200+</div><div class="label">冥想音频</div></div>
@@ -326,7 +250,7 @@
     </div>
 </section>
 
-<!-- Features Bento -->
+<!-- Features -->
 <section class="section" id="features">
     <div class="fade-up">
         <div class="section-label">Core Features</div>
@@ -343,79 +267,78 @@
         <div class="bento-card card-purple">
             <div class="bento-icon">🧘</div>
             <h3>冥想正念</h3>
-            <p>200+ 专业冥想音频，涵盖助眠、减压、专注等场景。正念打卡追踪成长。</p>
+            <p>200+ 专业冥想音频，涵盖助眠、减压、专注。正念打卡追踪成长。</p>
         </div>
         <div class="bento-card card-pink">
             <div class="bento-icon">💬</div>
             <h3>沉浸式聊天</h3>
-            <p>文字、语音、视频通话、位置共享、书籍卡片。自定义气泡风格，语音转文字。</p>
+            <p>文字、语音、视频通话、位置共享、书籍卡片。自定义气泡，语音转文字。</p>
         </div>
         <div class="bento-card span2 card-green">
             <div class="bento-icon">🧠</div>
             <h3>人格测评体系</h3>
-            <p>MBTI、大五人格、九型人格、DISC、PDP 五大权威测评全覆盖。深度解析你的人格特质，历史记录可追溯，见证认知成长轨迹。</p>
+            <p>MBTI、大五人格、九型人格、DISC、PDP 五大权威测评全覆盖。深度解析人格特质，历史可追溯，见证认知成长轨迹。</p>
             <div class="tags"><span class="tag">MBTI</span><span class="tag">大五人格</span><span class="tag">九型人格</span><span class="tag">DISC</span><span class="tag">PDP</span></div>
         </div>
         <div class="bento-card card-orange">
             <div class="bento-icon">🏆</div>
             <h3>文学擂台</h3>
-            <p>阅读挑战、知识竞赛、时长 PK。成就勋章与书币激励，在竞争中爱上阅读。</p>
+            <p>阅读挑战、知识竞赛、时长 PK。勋章与书币激励，在竞争中爱上阅读。</p>
         </div>
         <div class="bento-card card-teal">
             <div class="bento-icon">👨‍⚕️</div>
             <h3>公益心理咨询</h3>
-            <p>认证公益心理咨询师在线交流，支持视频通话，为心灵提供安全的倾诉空间。</p>
+            <p>认证心理咨询师在线交流，支持视频通话，为心灵提供安全倾诉空间。</p>
         </div>
         <div class="bento-card card-rose">
             <div class="bento-icon">📝</div>
             <h3>随心记</h3>
-            <p>心情日记，记录读书感悟与生活点滴。用文字沉淀思考。</p>
+            <p>心情日记，记录读书感悟与生活点滴。</p>
         </div>
         <div class="bento-card card-brown">
             <div class="bento-icon">🌐</div>
             <h3>书友广场</h3>
-            <p>发布动态、分享书评、发起话题。附近定位发现身边书友。</p>
+            <p>发布动态、分享书评、附近发现书友。</p>
         </div>
         <div class="bento-card card-red">
             <div class="bento-icon">🎖️</div>
             <h3>成就系统</h3>
-            <p>阅读里程碑、打卡记录、社区贡献，每一步成长都被铭记。</p>
+            <p>里程碑、打卡、贡献，每一步都被铭记。</p>
         </div>
     </div>
 </section>
 
-<!-- Tech Highlights -->
-<section class="tech-section" id="tech">
+<!-- Tech -->
+<section class="tech-strip" id="tech">
     <div class="section fade-up">
         <div class="section-label">Why Shuyu</div>
         <div class="section-title">技术亮点</div>
-        <div class="section-desc">不只是阅读工具，更是你值得信赖的心灵伙伴</div>
         <div class="tech-grid">
             <div class="tech-item">
                 <div class="icon">🔐</div>
                 <h3>端到端加密</h3>
-                <p>聊天消息全程加密传输与存储，语音视频通话安全无忧</p>
+                <p>消息全程加密传输存储，语音视频通话安全无忧</p>
             </div>
             <div class="tech-item">
                 <div class="icon">🧬</div>
                 <h3>AI 智能识别</h3>
-                <p>ISBN 扫码秒级识别，语音实时转文字，智能内容推荐</p>
+                <p>ISBN 秒级识别，语音实时转文字，智能推荐</p>
             </div>
             <div class="tech-item">
                 <div class="icon">☁️</div>
                 <h3>云端同步</h3>
-                <p>阅读进度、冥想记录、测评历史，多设备实时同步</p>
+                <p>阅读进度、冥想记录、测评历史多设备同步</p>
             </div>
             <div class="tech-item">
                 <div class="icon">🛡️</div>
                 <h3>隐私至上</h3>
-                <p>最小化数据收集，支持一键删除账号及所有数据</p>
+                <p>最小化数据收集，一键删除账号及所有数据</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Policy & Subscription -->
+<!-- Policy -->
 <section class="section" id="policy">
     <div class="fade-up">
         <div class="section-label">Policy</div>
@@ -428,7 +351,7 @@
                 <li>仅收集提供服务所必需的信息（如手机号用于注册）</li>
                 <li>阅读记录、聊天内容等个人数据严格保密，不向第三方泄露</li>
                 <li>聊天消息采用加密技术保护传输和存储安全</li>
-                <li>可随时在 App 内申请删除个人账号及所有相关数据</li>
+                <li>可随时在 App 内申请删除账号及所有数据</li>
                 <li>不会在未经同意的情况下发送营销信息</li>
             </ul>
         </div>
@@ -438,7 +361,7 @@
                 <li>提供月卡、季卡、年卡自动续订及永久会员一次性购买</li>
                 <li>费用通过 Apple ID 账户支付</li>
                 <li>到期前 24 小时自动续订并扣费</li>
-                <li>可随时在 iPhone 设置 → Apple ID → 订阅 中管理或取消</li>
+                <li>可在 iPhone 设置 → Apple ID → 订阅中管理或取消</li>
                 <li>免费试用期未使用部分在购买订阅后失效</li>
             </ul>
         </div>
@@ -448,23 +371,19 @@
 <!-- Contact -->
 <section id="contact">
     <div class="contact-bar fade-up">
-        <div class="item"><span class="icon">✉️</span> 邮箱：<strong>bookpals@163.com</strong></div>
-        <div class="item"><span class="icon">🕐</span> 工作时间：<strong>周一至周五 9:00-18:00</strong></div>
-        <div class="item"><span class="icon">⚡</span> 响应：<strong>1-2 个工作日</strong></div>
+        <div class="item">✉️ 邮箱：<strong>bookpals@163.com</strong></div>
+        <div class="item">🕐 工作时间：<strong>周一至周五 9:00-18:00</strong></div>
+        <div class="item">⚡ 响应：<strong>1-2 个工作日</strong></div>
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
-    <p>&copy; 2026 yinming ye. All rights reserved.</p>
-</footer>
+<footer class="footer">&copy; 2026 yinming ye. All rights reserved.</footer>
 
 <script>
-    // Scroll-triggered fade-up animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+const obs = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
